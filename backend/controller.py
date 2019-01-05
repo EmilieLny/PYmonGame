@@ -33,14 +33,14 @@ def generateGameStatus(game_id, player_id):
     gamePlayers = db.getGamePlayers(game_id)
     currentPlayer["status"] = "viewer"
 
-    if not currentGame["closed"] and len(currentGame["sequence"]) == len(gamePlayers):
-        db.updateGameStatus(game_id, "full")
+    if len(currentGame['sequence']) == len(gamePlayers):
+        db.updateGameStatus(game_id, 'closed')
 
     for p in gamePlayers:
         if p["player"] == player_id:
             currentPlayer["status"] = p["status"]
             break
-    return {"game":currentGame,"players":gamePlayers, "user":currentPlayer}
+    return {"game": currentGame, "players": gamePlayers, "user": currentPlayer}
 
 
 def playTurn(game_id, player_id, color):

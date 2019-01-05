@@ -17,7 +17,7 @@ def getCursor(sql):
     try:
         with connection.cursor() as cursor:
             result = cursor.execute(sql)
-    except Exception, e:
+    except Exception as e:
         print(repr(e))
         pass
     return result
@@ -30,7 +30,7 @@ def queryAll(sql):
         with connection.cursor() as cursor:
             cursor.execute(sql)
             result = cursor.fetchall()
-    except Exception, e:
+    except Exception as e:
         print(repr(e))
         pass
     return result
@@ -43,7 +43,7 @@ def queryOne(sql):
         with connection.cursor() as cursor:
             cursor.execute(sql)
             result = cursor.fetchone()
-    except Exception, e:
+    except Exception as e:
         print(repr(e))
         pass
     return result
@@ -54,7 +54,7 @@ def updateOrInsert(sql):
     try:
         with connection.cursor() as cursor:
             success = cursor.execute(sql)
-    except Exception, e:
+    except Exception as e:
         print(repr(e))
         pass
     return success
