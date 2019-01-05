@@ -1,18 +1,23 @@
 from backend import utils
 from backend import db
 
+
 def createGame(name, creator):
     sequence = utils.generateSequence()
     db.newGame(name, creator, sequence)
 
+
 def createPlayer(name):
     db.newPlayer(name)
+
 
 def gameExists(game_id):
     return db.getGame(game_id)
 
+
 def listGames():
     return db.getAllGames()
+
 
 def joinGame(game_id, player_id):
     currentGame = db.getGame(game_id)
@@ -21,18 +26,22 @@ def joinGame(game_id, player_id):
     return False
 
 
-
 def generateGameStatus(game_id, player_id):
-    currentPlayer = {"name":player_id}
+    currentPlayer = {"name": player_id}
     currentGame = db.getGame(game_id)
     currentGame["sequence"] = currentGame["sequence"].split(",")
     gamePlayers = db.getGamePlayers(game_id)
     currentPlayer["status"] = "viewer"
+
+    if len(currentGame['sequence']) == len(gamePlayers):
+        db.updateGameStatus(game_id, 'closed')
+
     for p in gamePlayers:
         if p["player"] == player_id:
             currentPlayer["status"] = p["status"]
             break
-    return {"game":currentGame,"players":gamePlayers, "user":currentPlayer}
+    return {"game": currentGame, "players": gamePlayers, "user": currentPlayer}
+
 
 def playTurn(game_id, player_id, color):
     currentGame = db.getGame(game_id)
@@ -49,11 +58,11 @@ def playTurn(game_id, player_id, color):
         return True
     return False
 
+
 def checkTurn(game, color):
     sequence = game["sequence"].split(",")
     step = game["step"]
     return color == sequence[step]
-
 
 
 def markPlayerReady(game_id, player_id):
@@ -68,11 +77,13 @@ def markPlayerReady(game_id, player_id):
         return True
     return False
 
+
 def correctTurn(game_id, player_id, newStep):
     db.updateGameStep(game_id, newStep)
     db.updatePlayerStatus(game_id, player_id, "ready")
     nextPlayer = db.getNextPlayer(game_id, player_id)
     return db.updatePlayerStatus(game_id, nextPlayer, "turn")
+
 
 def wrongTurn(game_id, player_id):
     db.updatePlayerStatus(game_id, player_id, "failed")
@@ -80,6 +91,7 @@ def wrongTurn(game_id, player_id):
     if not nextPlayer:
         return db.updateGameStatus(game_id, "failed")
     return db.updatePlayerStatus(game_id, nextPlayer, "turn")
+
 
 def win(game_id, newStep):
     db.updateGameStatusAndStep(game_id, "won", newStep)
