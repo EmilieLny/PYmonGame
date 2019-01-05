@@ -214,21 +214,22 @@
 
 @media only screen and (max-width: 800px) {
     .main {
-    height: 100vh;
-    flex-direction: column;
+     height: 100vh;
+     flex-direction: column;
     }
 
     .side {
-    display: flex;
-    width: 100vw;
+     display: flex;
+     width: 100vw;
     }
 
     .simon {
-    width: 70vw;
-    height: 70vw;
+     width: 70vw;
+     height: 70vw;
     }
 
     .resp-col {
-    display: flex;
+     display: flex;
     }
+
 }
