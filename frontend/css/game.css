@@ -231,17 +231,14 @@
      height: 100vh;
      flex-direction: column;
     }
-
     .side {
      display: flex;
      width: 100vw;
     }
-
     .simon {
      width: 70vw;
      height: 70vw;
     }
-
     .resp-col {
      display: flex;
     }
