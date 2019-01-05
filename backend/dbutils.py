@@ -1,5 +1,6 @@
 import pymysql
-###### https://www.db4free.net/phpMyAdmin/index.php
+# https://www.db4free.net/phpMyAdmin/index.php
+
 
 # Connect to the database
 connection = pymysql.connect(host='db4free.net',
@@ -9,6 +10,7 @@ connection = pymysql.connect(host='db4free.net',
                              charset='utf8',
                              autocommit=True,
                              cursorclass=pymysql.cursors.DictCursor)
+
 
 def getCursor(sql):
     result = 0
@@ -20,7 +22,8 @@ def getCursor(sql):
         pass
     return result
 
-#Run a DB query that expects a list of results
+
+# Run a DB query that expects a list of results
 def queryAll(sql):
     result = []
     try:
@@ -32,7 +35,8 @@ def queryAll(sql):
         pass
     return result
 
-#Run a DB query that expects one result
+
+# un a DB query that expects one result
 def queryOne(sql):
     result = None
     try:
@@ -43,6 +47,7 @@ def queryOne(sql):
         print(repr(e))
         pass
     return result
+
 
 def updateOrInsert(sql):
     success = False
